@@ -12,7 +12,7 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 
 const app = express();
 
-// ✅ Enable CORS for frontend
+//  Enable CORS for frontend
 app.use(cors({
   origin: "http://localhost:5173",
   methods: ["GET", "POST"],
@@ -20,11 +20,11 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// ✅ Resume & AI routes only (no login now)
+//  Resume & AI routes only (no login now)
 app.use("/resume", resumeRoutes);
 app.use("/ai", aiRoutes);
 
-// ✅ Forward AI requests to FastAPI (Gemini backend)
+//  Forward AI requests to FastAPI (Gemini backend)
 app.use(
   "/ai",
   createProxyMiddleware({
@@ -34,11 +34,11 @@ app.use(
   })
 );
 
-// ✅ Root route for sanity check
+//  Root route for sanity check
 app.get("/", (req, res) => {
   res.send("🚀 Resume Analyzer API (no login) is running");
 });
 
-// ✅ Start server
+//  Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`✅ API ready on port ${PORT}`));
